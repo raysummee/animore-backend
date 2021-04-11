@@ -17,4 +17,9 @@ class Veterinary extends Model
     {
        return $this->hasMany(User::class);
     }
+
+    public function vetBooks()
+    {
+        return $this->hasMany(VetBook::class);
+    }
 }

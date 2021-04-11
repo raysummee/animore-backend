@@ -32,4 +32,9 @@ class Pet extends Model
         return $this->hasMany(PetDailies::class);
     }
 
+    public function vetBooks()
+    {
+        return $this->hasMany(VetBook::class);
+    }
+
 }

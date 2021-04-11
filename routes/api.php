@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\BookVeterinaryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -54,6 +55,10 @@ Route::post('/veterinary', [App\Http\Controllers\API\VeterinaryController::class
 Route::get('/veterinary', [App\Http\Controllers\API\VeterinaryController::class, 'index'])->middleware('auth:api');
 Route::delete('/veterinary', [App\Http\Controllers\API\VeterinaryController::class, 'delete'])->middleware("auth:api");
 Route::put('/veterinary', [App\Http\Controllers\API\VeterinaryController::class, 'update'])->middleware("auth:api");
+
+//veterinary book
+Route::post('/veterinary/book', [BookVeterinaryController::class, 'store'])->middleware("auth:api");
+Route::post('/veterinary/status/{vetBook}', [BookVeterinaryController::class, 'statusChange'])->middleware("auth:api");
 
 //store/merchant
 Route::get("/merchant",[App\Http\Controllers\API\MerchantController::class, 'index']);
