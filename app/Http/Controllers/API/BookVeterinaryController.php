@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Events\onCreateVetBook;
+use App\Events\VetBook\onCreateVetBook;
 use App\Events\VetBook\onStatusChangeVetBook;
 use App\Http\Controllers\Controller;
 use App\Models\Pet;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\VetBook;
 
 use App\Models\Pet;
 use App\Models\User;
