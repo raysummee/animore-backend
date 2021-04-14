@@ -43,7 +43,7 @@ class AuthController extends Controller
 
         $accessToken = $user->createToken('authToken')->accessToken;
 
-        $output = (array_merge($user->only("name", "email"), $profile->only("role", "phone", "image", "dob")));
+        $output = (array_merge($user->only("id","name", "email"), $profile->only("role", "phone", "image", "dob")));
 
         return response(['user'=>$output, 'access_token'=>$accessToken]);
     }
@@ -74,7 +74,7 @@ class AuthController extends Controller
         $user = auth()->user();
         $profile = $user->profile;
 
-        $output = (array_merge($user->only("name", "email"), $profile->only("role", "phone", "image", "dob")));
+        $output = (array_merge($user->only("id", "name", "email"), $profile->only("role", "phone", "image", "dob")));
 
         return response(['user'=>$output, 'access_token'=>$accessToken]);
     }

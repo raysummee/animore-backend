@@ -51,6 +51,7 @@ class BookVeterinaryController extends Controller
             return response(['message'=>$e->getMessage()]);
         }
 
+
         foreach ($vetBook->veterinary->users as $user){
             if($request->user()->id == $user->id){
                 $result = $vetBook->update($data);

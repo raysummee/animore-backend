@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\VetBook;
 use App\Models\Veterinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,8 +14,23 @@ class VeterinaryController extends Controller
 {
     public function index(Request $request)
     {
-        $data =  Veterinary::all();
-        return response(['veterinary'=>$data]);
+        $data = Veterinary::all();
+        $pet = $request->user()->pet[0];
+        $vetBook = $pet->vetBooks()->latest()->get();
+
+        $output = [];
+
+
+        foreach ($data as $vet){
+            if($vetBook->contains("veterinary_id","=",$vet->id)){
+                $status = $vetBook->firstWhere("veterinary_id","=", $vet->id)->status;
+                array_push($output, array_merge($vet->toArray(), ["status"=> $status ]));
+            }else{
+                array_push($output, array_merge($vet->toArray(), ["status"=>"none"]));
+            }
+        }
+
+        return response(['veterinary'=>$output]);
     }
 
     public function update(Request $request)
