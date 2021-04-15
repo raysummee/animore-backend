@@ -46,6 +46,7 @@ class BookVeterinaryController extends Controller
         $pet = Pet::find($data["pet_id"]);
         if($request->user()->id == $pet->user->id){
             $status = $pet->vetBooks()->create($data);
+            $status->pet->user;
             event(new onCreateVetBook($status));
             return response()->json(["book"=>$status], 200);
         }else{
