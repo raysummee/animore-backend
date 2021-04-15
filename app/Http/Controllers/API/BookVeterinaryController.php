@@ -15,6 +15,16 @@ use Illuminate\Validation\ValidationException;
 
 class BookVeterinaryController extends Controller
 {
+
+    public function index(Request $request)
+    {
+        $vetId = $request->user()->veterinary->id;
+
+        $bookings = VetBook::where("veterinary_id","=",$vetId)->get();
+
+        return response()->json(["vetBook"=>$bookings]);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [

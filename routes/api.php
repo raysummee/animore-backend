@@ -58,7 +58,8 @@ Route::put('/veterinary', [App\Http\Controllers\API\VeterinaryController::class,
 
 //veterinary book
 Route::post('/veterinary/book', [BookVeterinaryController::class, 'store'])->middleware("auth:api");
-Route::post('/veterinary/status/{vetBook}', [BookVeterinaryController::class, 'statusChange'])->middleware("auth:api");
+Route::post('/veterinary/book/status/{vetBook}', [BookVeterinaryController::class, 'statusChange'])->middleware("auth:api");
+Route::get('/veterinary/book', [BookVeterinaryController::class, 'index'])->middleware("auth:api");
 
 //store/merchant
 Route::get("/merchant",[App\Http\Controllers\API\MerchantController::class, 'index']);
