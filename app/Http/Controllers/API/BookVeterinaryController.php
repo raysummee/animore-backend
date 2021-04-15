@@ -20,7 +20,11 @@ class BookVeterinaryController extends Controller
     {
         $vetId = $request->user()->veterinary->id;
 
-        $bookings = VetBook::where("veterinary_id","=",$vetId)->get();
+        $bookings = VetBook::where("veterinary_id","=",$vetId)
+            ->where("status","=", "booked")
+            ->orWhere("status","=", "accepted")
+            ->with("pet.user")
+            ->get();
 
         return response()->json(["vetBook"=>$bookings]);
     }
