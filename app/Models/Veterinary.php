@@ -10,7 +10,7 @@ class Veterinary extends Model
     use HasFactory;
 
     protected $fillable = [
-        "name", "available", "contact_no", "email", "desc"
+        "name", "available", "contact_no", "email", "desc", "star", "location"
     ];
 
     public function users()

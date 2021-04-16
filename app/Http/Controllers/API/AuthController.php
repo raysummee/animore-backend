@@ -37,15 +37,9 @@ class AuthController extends Controller
 
         $user = User::create($validateData);
 
-        $profile = $user->profile()->save(new Profile([
-            "role" => "basic"
-        ]));
-
         $accessToken = $user->createToken('authToken')->accessToken;
 
-        $output = (array_merge($user->only("id","name", "email"), $profile->only("role", "phone", "image", "dob")));
-
-        return response(['user'=>$output, 'access_token'=>$accessToken]);
+        return response(['user'=>$user, 'access_token'=>$accessToken]);
     }
 
     public function login(Request $request)
@@ -72,11 +66,8 @@ class AuthController extends Controller
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
 
         $user = auth()->user();
-        $profile = $user->profile;
 
-        $output = (array_merge($user->only("id", "name", "email"), $profile->only("role", "phone", "image", "dob")));
-
-        return response(['user'=>$output, 'access_token'=>$accessToken]);
+        return response(['user'=>$user, 'access_token'=>$accessToken]);
     }
 
     public function logout(Request $request)

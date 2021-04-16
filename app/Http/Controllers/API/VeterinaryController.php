@@ -41,7 +41,9 @@ class VeterinaryController extends Controller
             "available" => '',
             "contact_no" => '',
             "email" => '',
-            "desc" => ''
+            "desc" => '',
+            "location" => '',
+            "star" => 'integer'
         ]);
 
         try {
@@ -66,7 +68,9 @@ class VeterinaryController extends Controller
             "available" => 'required',
             "contact_no" => 'required',
             "email" => 'required',
-            "desc" => 'required'
+            "desc" => 'required',
+            "location" => 'required',
+            "star" => 'required|integer'
         ]);
 
         try {

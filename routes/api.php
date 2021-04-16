@@ -41,10 +41,9 @@ Route::get("/todos/{pet}",[App\Http\Controllers\API\PetDailiesController::class,
 Route::post("/todos/{pet}",[App\Http\Controllers\API\PetDailiesController::class, "store"])->middleware("auth:api");
 Route::delete("/todos/{petDailies}", [App\Http\Controllers\API\PetDailiesController::class, "delete"])->middleware("auth:api");
 
-//profile
-Route::get('/profile', [App\Http\Controllers\API\ProfileController::class, 'index'])->middleware("auth:api");
-Route::post('/profile', [App\Http\Controllers\API\ProfileController::class, 'update'])->middleware("auth:api");
-
+//user
+Route::post('/user', [\App\Http\Controllers\API\UserController::class, 'store']);
+Route::put('/user', [\App\Http\Controllers\API\UserController::class, 'update'])->middleware("auth:api");
 
 //util
 Route::post('/upload/image', [App\Http\Controllers\API\UtilityController::class, 'imageUpload'])->middleware("auth:api");

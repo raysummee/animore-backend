@@ -23,7 +23,11 @@ class User extends Authenticatable
         'email',
         'password',
         'veterinary_id',
-        'store_id'
+        'store_id',
+        "role",
+        "phone",
+        "dob",
+        "image"
     ];
 
     /**
@@ -43,17 +47,13 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'dob' => 'datetime'
     ];
 
 
     public function pet()
     {
         return $this->hasMany(Pet::class);
-    }
-
-    public function profile()
-    {
-        return $this->hasOne(Profile::class);
     }
 
     public function veterinary()
