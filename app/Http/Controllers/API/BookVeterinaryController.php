@@ -34,7 +34,8 @@ class BookVeterinaryController extends Controller
         $validator = Validator::make($request->all(), [
             "pet_id" => "required|integer",
             "veterinary_id" => "required|integer",
-            "onDate" => "required|date_format:Y-m-d H:i:s"
+            "onDate" => "required|date_format:Y-m-d H:i:s",
+            "subject" => "required"
         ]);
 
         try {

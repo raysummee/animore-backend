@@ -10,7 +10,7 @@ class VetBook extends Model
     use HasFactory;
 
     protected $fillable = [
-        "pet_id", "veterinary_id", "onDate", "status"
+        "pet_id", "veterinary_id", "onDate", "status", "subject"
     ];
 
     public function pet()
