@@ -35,6 +35,8 @@ class AuthController extends Controller
 
         $validateData['password'] = bcrypt($request->password);
 
+        $validateData['role'] = "basic";
+
         $user = User::create($validateData);
 
         $accessToken = $user->createToken('authToken')->accessToken;
