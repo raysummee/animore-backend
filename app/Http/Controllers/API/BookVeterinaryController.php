@@ -51,6 +51,7 @@ class BookVeterinaryController extends Controller
         }
 
         if($request->user()->id == $pet->user->id){
+            $data["status"] = "booked";
             $status = $pet->vetBooks()->create($data);
             $status->pet->user;
             event(new onCreateVetBook($status));
