@@ -25,9 +25,11 @@ class UtilityController extends Controller
 
         $extension = $request->file("file")->extension();
 
+        $userWithoutSpace = str_replace(" ","_", $request->user()->name);
+
         $file = $request->file("file")->storeAs(
             'public/'.$request->user()->id,
-            $request->user()->name."-".Str::random(20).".".$extension
+            $userWithoutSpace."-".Str::random(20).".".$extension
         );
         $file = explode("public/", $file);
 
