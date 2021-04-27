@@ -34,6 +34,7 @@ class UserController extends Controller
 
 
         $validateData['password'] = bcrypt($request->password);
+        $validateData['role'] = "basic";
 
         $user = User::create($validateData);
 
