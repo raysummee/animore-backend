@@ -81,6 +81,11 @@ class BookVeterinaryController extends Controller
         }
 
 
+        if($vetBook->veterinary==null){
+            return response(["message"=>"veterinary doesn't exist or deleted"], 404);
+        }
+
+
         foreach ($vetBook->veterinary->users as $user){
             if($request->user()->id == $user->id){
                 $result = $vetBook->update($data);
