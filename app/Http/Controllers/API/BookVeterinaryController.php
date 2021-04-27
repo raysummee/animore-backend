@@ -45,13 +45,18 @@ class BookVeterinaryController extends Controller
         }
 
         $pet = Pet::find($data["pet_id"]);
+
+        if($pet==null){
+            return response(["message"=>"pet of id ".$data["pet_id"]." doesn't exist"], 404);
+        }
+
         if($request->user()->id == $pet->user->id){
             $status = $pet->vetBooks()->create($data);
             $status->pet->user;
             event(new onCreateVetBook($status));
             return response()->json(["book"=>$status], 200);
         }else{
-            return response()->json(["message"=>"not login"], 503);
+            return response()->json(["message"=>"Not authenticated"], 503);
         }
     }
 
@@ -81,7 +86,7 @@ class BookVeterinaryController extends Controller
             }
         }
 
-        return response(['message'=>"not logined"], 503);
+        return response(['message'=>"Not authenticated"], 503);
 
 
     }
