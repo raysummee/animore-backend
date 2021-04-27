@@ -25,7 +25,7 @@ class UtilityController extends Controller
 
         $extension = $request->file("file")->extension();
 
-        $userWithoutSpace = str_replace(" ","_", $request->user()->name);
+        $userWithoutSpace = str_replace(" ","-", $request->user()->name);
 
         $file = $request->file("file")->storeAs(
             'public/'.$request->user()->id,
