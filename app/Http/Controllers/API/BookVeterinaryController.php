@@ -50,6 +50,13 @@ class BookVeterinaryController extends Controller
             return response(["message"=>"pet of id ".$data["pet_id"]." doesn't exist"], 404);
         }
 
+        $vet = Veterinary::find($data["veterinary_id"]);
+
+        if($vet==null){
+            return response(["message"=>"veterinary of id ".$data["veterinary_id"]." doesn't exist"], 404);
+        }
+
+
         if($request->user()->id == $pet->user->id){
             $data["status"] = "booked";
             $status = $pet->vetBooks()->create($data);
