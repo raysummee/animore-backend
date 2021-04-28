@@ -23,7 +23,7 @@ class PetDailiesController extends Controller
             $sun = $pet->dailies()->where("week", "sunday")->get();
 
 
-            $arrDaily = array("mon"=>$mon, "tues"=>$tues, "wed"=>$wed, "thus"=>$thus, "fri"=>$fri, "sat"=>$sat, "sun"=>$sun);
+            $arrDaily = array("mon"=>$mon, "tue"=>$tues, "wed"=>$wed, "thu"=>$thus, "fri"=>$fri, "sat"=>$sat, "sun"=>$sun);
 
             return response(['todos' => $arrDaily]);
         }else{
