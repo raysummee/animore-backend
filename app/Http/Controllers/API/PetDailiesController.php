@@ -37,7 +37,7 @@ class PetDailiesController extends Controller
             $validator = Validator::make($request->all(),[
                 "task_name" => "required",
                 "week" => "required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday",
-                "time" => "required|date_format:h:i:s"
+                "time" => "required|date_format:H:i:s"
             ]);
 
             try {
