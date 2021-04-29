@@ -49,6 +49,11 @@ Route::put('/user', [\App\Http\Controllers\API\UserController::class, 'update'])
 Route::post('/upload/image', [App\Http\Controllers\API\UtilityController::class, 'imageUpload'])->middleware("auth:api");
 Route::get('/upload/image/{filename}',[App\Http\Controllers\API\UtilityController::class, 'imageShow'])->where('filename', '[A-Za-z0-9/.-]+');
 
+//veterinary book
+Route::post('/veterinary/book', [BookVeterinaryController::class, 'store'])->middleware("auth:api");
+Route::post('/veterinary/book/status/{vetBook}', [BookVeterinaryController::class, 'statusChange'])->middleware("auth:api");
+Route::get('/veterinary/book', [BookVeterinaryController::class, 'index'])->middleware("auth:api");
+
 //veterinary
 Route::post('/veterinary', [App\Http\Controllers\API\VeterinaryController::class, 'store'])->middleware("auth:api");
 Route::get('/veterinary', [App\Http\Controllers\API\VeterinaryController::class, 'index'])->middleware('auth:api');
@@ -56,11 +61,6 @@ Route::get('/veterinary/auth', [\App\Http\Controllers\API\VeterinaryController::
 Route::get('/veterinary/{userId}', [\App\Http\Controllers\API\VeterinaryController::class, 'detail'])->middleware('auth:api');
 Route::delete('/veterinary', [App\Http\Controllers\API\VeterinaryController::class, 'delete'])->middleware("auth:api");
 Route::put('/veterinary', [App\Http\Controllers\API\VeterinaryController::class, 'update'])->middleware("auth:api");
-
-//veterinary book
-Route::post('/veterinary/book', [BookVeterinaryController::class, 'store'])->middleware("auth:api");
-Route::post('/veterinary/book/status/{vetBook}', [BookVeterinaryController::class, 'statusChange'])->middleware("auth:api");
-Route::get('/veterinary/book', [BookVeterinaryController::class, 'index'])->middleware("auth:api");
 
 //store/merchant
 Route::get("/merchant",[App\Http\Controllers\API\MerchantController::class, 'index']);
