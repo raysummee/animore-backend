@@ -52,6 +52,8 @@ Route::get('/upload/image/{filename}',[App\Http\Controllers\API\UtilityControlle
 //veterinary
 Route::post('/veterinary', [App\Http\Controllers\API\VeterinaryController::class, 'store'])->middleware("auth:api");
 Route::get('/veterinary', [App\Http\Controllers\API\VeterinaryController::class, 'index'])->middleware('auth:api');
+Route::get('/veterinary/auth', [\App\Http\Controllers\API\VeterinaryController::class, 'authorizeVeterinary'])->middleware('auth:api');
+Route::get('/veterinary/{userId}', [\App\Http\Controllers\API\VeterinaryController::class, 'detail'])->middleware('auth:api');
 Route::delete('/veterinary', [App\Http\Controllers\API\VeterinaryController::class, 'delete'])->middleware("auth:api");
 Route::put('/veterinary', [App\Http\Controllers\API\VeterinaryController::class, 'update'])->middleware("auth:api");
 

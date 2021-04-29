@@ -33,6 +33,29 @@ class VeterinaryController extends Controller
         return response(['veterinary'=>$output]);
     }
 
+    public function authorizeVeterinary(Request $request)
+    {
+        $veterinary = $request->user()->veterinary;
+        if($veterinary==null){
+            return response(["message"=>"No veterinary found for the user"],404);
+        }
+        return response(["veterinary"=>$veterinary]);
+    }
+
+    public function detail(Request $request, $userId)
+    {
+        $user = User::find($userId);
+
+        if($user==null){
+            return response(["message"=>"User not found"],404);
+        }
+        $veterinary = $user->veterinary;
+        if($veterinary==null){
+            return response(["message"=>"No veterinary found for the user"],404);
+        }
+        return response(["veterinary"=>$veterinary]);
+    }
+
     public function update(Request $request)
     {
 
