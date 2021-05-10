@@ -41,7 +41,7 @@ class BookVeterinaryController extends Controller
         try {
             $data = $validator->validate();
         } catch (ValidationException $e) {
-            return response(['message'=>$e->getMessage()]);
+            return response(['message'=>$e->getMessage()], 500);
         }
 
         $pet = Pet::find($data["pet_id"]);
@@ -62,9 +62,9 @@ class BookVeterinaryController extends Controller
             $status = $pet->vetBooks()->create($data);
             $status->pet->user;
             event(new onCreateVetBook($status));
-            return response()->json(["book"=>$status], 200);
+            return response()->json(["book"=>$status], 201);
         }else{
-            return response()->json(["message"=>"Not authenticated"], 503);
+            return response()->json(["message"=>"Not authenticated"], 401);
         }
     }
 
@@ -77,7 +77,7 @@ class BookVeterinaryController extends Controller
         try {
             $data = $validator->validate();
         } catch (ValidationException $e) {
-            return response(['message'=>$e->getMessage()]);
+            return response(['message'=>$e->getMessage()], 500);
         }
 
 
@@ -94,12 +94,12 @@ class BookVeterinaryController extends Controller
                     event(new onStatusChangeVetBook($vetBook));
                     return response(["message" => $result, "book"=>$vetBook]);
                 }else{
-                    return response(["message"=>"error"], 400);
+                    return response(["message"=>"error"], 500);
                 }
             }
         }
 
-        return response(['message'=>"Not authenticated"], 503);
+        return response(['message'=>"Not authenticated"], 401);
 
 
     }
