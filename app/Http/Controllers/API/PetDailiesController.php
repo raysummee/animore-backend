@@ -8,6 +8,7 @@ use App\Models\PetDailies;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Ratchet\Wamp\Exception;
 
 class PetDailiesController extends Controller
 {
@@ -48,6 +49,31 @@ class PetDailiesController extends Controller
             $pet->dailies()->create($data);
 
             return response(["todos"=> $data], 201);
+        }else{
+            return response(["message"=>"Forbidden"], 403);
+        }
+    }
+
+    public function update(Request $request, PetDailies $petDailies)
+    {
+        if($petDailies->pet->user->id == $request->user()->id){
+            $validator = Validator::make($request->all(),[
+                "task_name" => "required",
+                "week" => "required|in:mon,tue,wed,thu,fri,sat,sun",
+                "time" => "required|date_format:H:i:s"
+            ]);
+
+            try {
+                $data = $validator->validate();
+            } catch (ValidationException $e) {
+                return response(["message"=>$e->getMessage()], 400);
+            }
+            $status = $petDailies->update($data);
+            if($status==0){
+                return response(["message"=>"Could not update"], 500);
+            }else{
+                return response(["message"=>"Updated"]);
+            }
         }else{
             return response(["message"=>"Forbidden"], 403);
         }
