@@ -40,6 +40,7 @@ Route::put("/important_date/{pet}/{date}", [\App\Http\Controllers\API\PetImporta
 Route::get("/todos/{pet}",[App\Http\Controllers\API\PetDailiesController::class, "index"])->middleware("auth:api");
 Route::post("/todos/{pet}",[App\Http\Controllers\API\PetDailiesController::class, "store"])->middleware("auth:api");
 Route::delete("/todos/{petDailies}", [App\Http\Controllers\API\PetDailiesController::class, "delete"])->middleware("auth:api");
+Route::put("/todos/{petDailies}", [\App\Http\Controllers\API\PetDailiesController::class, "update"])->middleware("auth:api");
 
 //user
 Route::post('/user', [\App\Http\Controllers\API\UserController::class, 'store']);
