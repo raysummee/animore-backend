@@ -14,13 +14,13 @@ class PetDailiesController extends Controller
     public function index(Request $request, Pet $pet)
     {
         if($pet->user->id == $request->user()->id) {
-            $mon = $pet->dailies()->where("week", "monday")->oldest()->get();
-            $tues = $pet->dailies()->where("week", "tuesday")->get();
-            $wed = $pet->dailies()->where("week", "wednesday")->get();
-            $thus = $pet->dailies()->where("week", "thursday")->get();
-            $fri = $pet->dailies()->where("week", "friday")->get();
-            $sat = $pet->dailies()->where("week", "saturday")->get();
-            $sun = $pet->dailies()->where("week", "sunday")->get();
+            $mon = $pet->dailies()->where("week", "mon")->oldest()->get();
+            $tues = $pet->dailies()->where("week", "tue")->get();
+            $wed = $pet->dailies()->where("week", "wed")->get();
+            $thus = $pet->dailies()->where("week", "thu")->get();
+            $fri = $pet->dailies()->where("week", "fri")->get();
+            $sat = $pet->dailies()->where("week", "sat")->get();
+            $sun = $pet->dailies()->where("week", "sun")->get();
 
 
             $arrDaily = array("mon"=>$mon, "tue"=>$tues, "wed"=>$wed, "thu"=>$thus, "fri"=>$fri, "sat"=>$sat, "sun"=>$sun);
@@ -36,7 +36,7 @@ class PetDailiesController extends Controller
         if ($pet->user->id == $request->user()->id) {
             $validator = Validator::make($request->all(),[
                 "task_name" => "required",
-                "week" => "required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday",
+                "week" => "required|in:mon,tue,wed,thu,fri,sat,sun",
                 "time" => "required|date_format:H:i:s"
             ]);
 

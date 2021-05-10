@@ -18,7 +18,7 @@ class CreatePetDailiesTable extends Migration
             $table->string("task_name");
             $table->time("time");
             $table->foreignId("pet_id");
-            $table->enum("week", ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]);
+            $table->enum("week", ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]);
             $table->timestamps();
         });
     }
