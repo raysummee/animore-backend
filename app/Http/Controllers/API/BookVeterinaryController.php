@@ -64,7 +64,7 @@ class BookVeterinaryController extends Controller
             event(new onCreateVetBook($status));
             return response()->json(["book"=>$status], 201);
         }else{
-            return response()->json(["message"=>"Not authenticated"], 401);
+            return response()->json(["message"=>"Forbidden"], 403);
         }
     }
 
@@ -99,7 +99,7 @@ class BookVeterinaryController extends Controller
             }
         }
 
-        return response(['message'=>"Not authenticated"], 401);
+        return response(['message'=>"Forbidden"], 403);
 
 
     }
