@@ -20,7 +20,7 @@ class UtilityController extends Controller
         ]);
 
         if($validator->fails()){
-            return response(["message"=> $validator->errors()->getMessages()]);
+            return response(["message"=> $validator->errors()->getMessages()], 400);
         }
 
         $extension = $request->file("file")->extension();
@@ -33,7 +33,7 @@ class UtilityController extends Controller
         );
         $file = explode("public/", $file);
 
-        return response(["message"=>"upload/image/".$file[1]]);
+        return response(["message"=>"upload/image/".$file[1]], 201);
     }
 
     public function imageShow(Request $request, $filename)
@@ -57,7 +57,7 @@ class UtilityController extends Controller
 
             return $response;
         }else{
-            return response(['message'=>'unauthorised']);
+            return response(['message'=>'Forbidden'], 403);
         }
     }
 }
