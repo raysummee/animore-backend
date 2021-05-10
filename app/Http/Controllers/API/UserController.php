@@ -38,7 +38,7 @@ class UserController extends Controller
 
         $user = User::create($validateData);
 
-        return response(['user'=>$user]);
+        return response(['user'=>$user], 201);
 
     }
 
