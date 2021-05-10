@@ -73,7 +73,9 @@ class MerchantController extends Controller
     public function delete(Request $request)
     {
         $admin = $request->user()->storeAdmin;
-        User::where('store_id',$admin->id)->update(['store_id'=>null]);
+        if($admin==null){
+            return response(["message"=>"User doesn't have a store"], 404);
+        }
         $request->user()->storeAdmin()->delete();
         return response(['message'=>"deleted"]);
     }
