@@ -40,7 +40,7 @@ class PetController extends Controller
 
         $request->user()->pet()->create($validateData);
 
-        return response(["pet" => $validateData]);
+        return response(["pet" => $validateData], 201);
     }
 
     public function update(Request $request, Pet $pet)
@@ -54,9 +54,13 @@ class PetController extends Controller
                 "type" => ""
             ]);
             $updated=$pet->update($data);
-            return response(['message' => $updated==0?"could not update":"updated"], $updated==0?400:200);
+            if($updated==0){
+                return response(['message'=>"Could not update"], 500);
+            }else{
+                return response(['message'=>"Updated"]);
+            }
         }else{
-            return response(['message'=> 'Not authenticated'], 500);
+            return response(['message'=> 'Forbidden'], 403);
         }
     }
 
@@ -67,10 +71,10 @@ class PetController extends Controller
                 $pet->delete();
                 return response(['message'=>"deleted"]);
             } catch (\Exception $e) {
-                return response(["message"=>$e->getMessage()]);
+                return response(["message"=>$e->getMessage()], 500);
             }
         }else{
-            return response(['message'=> 'Not authenticated'], 500);
+            return response(['message'=> 'Forbidden'], 403);
         }
     }
 }
