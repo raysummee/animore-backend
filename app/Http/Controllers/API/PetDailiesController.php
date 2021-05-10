@@ -27,7 +27,7 @@ class PetDailiesController extends Controller
 
             return response(['todos' => $arrDaily]);
         }else{
-            return response(["message"=>"unauthorised"]);
+            return response(["message"=>"unauthorised"], 500);
         }
     }
 
@@ -49,7 +49,7 @@ class PetDailiesController extends Controller
 
             return response(["todos"=> $data]);
         }else{
-            return response(["message"=>"unauthorised"]);
+            return response(["message"=>"unauthorised"], 500);
         }
     }
 
@@ -59,11 +59,11 @@ class PetDailiesController extends Controller
             try {
                 $petDailies->delete();
             } catch (\Exception $e) {
-                return response(["message"=>$e->getMessage()]);
+                return response(["message"=>$e->getMessage()], 400);
             }
             return response(["message"=>"deleted"]);
         }else{
-            return response(["message"=>"unauthorised"]);
+            return response(["message"=>"unauthorised"], 500);
         }
     }
 }
