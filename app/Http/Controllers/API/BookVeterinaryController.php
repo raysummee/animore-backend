@@ -41,7 +41,7 @@ class BookVeterinaryController extends Controller
         try {
             $data = $validator->validate();
         } catch (ValidationException $e) {
-            return response(['message'=>$e->getMessage()], 500);
+            return response(['message'=>$e->getMessage()], 400);
         }
 
         $pet = Pet::find($data["pet_id"]);
@@ -77,7 +77,7 @@ class BookVeterinaryController extends Controller
         try {
             $data = $validator->validate();
         } catch (ValidationException $e) {
-            return response(['message'=>$e->getMessage()], 500);
+            return response(['message'=>$e->getMessage()], 400);
         }
 
 
