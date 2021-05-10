@@ -41,7 +41,7 @@ class AuthController extends Controller
 
         $accessToken = $user->createToken('authToken')->accessToken;
 
-        return response(['user'=>$user, 'access_token'=>$accessToken]);
+        return response(['user'=>$user, 'access_token'=>$accessToken], 201);
     }
 
     public function login(Request $request)
@@ -52,17 +52,17 @@ class AuthController extends Controller
         ]);
 
         if($validateData->fails()){
-            return response(['message'=>$validateData->messages()], 401);
+            return response(['message'=>$validateData->messages()], 400);
         }
 
         try {
             $loginData = $validateData->validate();
         } catch (ValidationException $e) {
-            return response(['message'=>$e->getMessage()], 401);
+            return response(['message'=>$e->getMessage()], 400);
         }
 
         if(!auth()->attempt($loginData)){
-            return response(['message'=>'Invalid credentials'], 503);
+            return response(['message'=>'Invalid credentials'], 401);
         }
 
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
