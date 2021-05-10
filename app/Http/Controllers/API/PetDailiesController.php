@@ -46,7 +46,7 @@ class PetDailiesController extends Controller
             } catch (ValidationException $e) {
                 return response(["message"=>$e->getMessage()], 400);
             }
-            $pet->dailies()->create($data);
+            $data = $pet->dailies()->create($data);
 
             return response(["todos"=> $data], 201);
         }else{
