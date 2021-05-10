@@ -18,7 +18,7 @@ class PetImportantDateController extends Controller
             $importantDate = $pet->importantDate;
             return response(['important_dates'=>$importantDate]);
         }else{
-            return response(['message'=>'unauthorised'], 500);
+            return response(['message'=>'Forbidden'], 403);
         }
     }
 
@@ -32,14 +32,14 @@ class PetImportantDateController extends Controller
             try {
                 $validatedData = $validator->validate();
             } catch (ValidationException $e) {
-                return response(['message'=> $e->getMessage()]);
+                return response(['message'=> $e->getMessage()], 400);
             }
 
             $pet->importantDate()->create($validatedData);
 
-            return response(['message'=> 'uploaded']);
+            return response(['message'=> 'uploaded'], 200);
         }else{
-            return response(['message'=>'unauthorised'], 500);
+            return response(['message'=>'Forbidden'], 403);
         }
     }
 
@@ -53,7 +53,7 @@ class PetImportantDateController extends Controller
             try {
                 $data = $validator->validate();
             } catch (ValidationException $e) {
-                return response(['message'=> $e->getMessage()]);
+                return response(['message'=> $e->getMessage()], 400);
             }
             $updated = $date->update($data);
             if($updated == true){
@@ -70,11 +70,11 @@ class PetImportantDateController extends Controller
             try {
                 $date->delete();
             } catch (\Exception $e) {
-                return response(['message'=>$e->getMessage()]);
+                return response(['message'=>$e->getMessage()], 400);
             }
             return response(['message'=> 'deleted']);
         }else{
-            return response(['message'=>'unauthorised'], 500);
+            return response(['message'=>'Forbidden'], 403);
         }
     }
 }
