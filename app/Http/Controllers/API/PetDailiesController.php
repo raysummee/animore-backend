@@ -58,9 +58,9 @@ class PetDailiesController extends Controller
     {
         if($petDailies->pet->user->id == $request->user()->id){
             $validator = Validator::make($request->all(),[
-                "task_name" => "required",
-                "week" => "required|in:mon,tue,wed,thu,fri,sat,sun",
-                "time" => "required|date_format:H:i:s"
+                "task_name" => "",
+                "week" => "in:mon,tue,wed,thu,fri,sat,sun",
+                "time" => "date_format:H:i:s"
             ]);
 
             try {
