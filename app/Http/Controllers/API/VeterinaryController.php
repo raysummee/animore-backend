@@ -72,11 +72,15 @@ class VeterinaryController extends Controller
         try {
             $data = $validator->validate();
         } catch (ValidationException $e) {
-            return response(['message'=>$e->getMessage()]);
+            return response(['message'=>$e->getMessage()], 400);
         }
-        $data = $request->user()->veterinaryAdmin()->update($data);
+        $status = $request->user()->veterinaryAdmin()->update($data);
 
-        return response(['veterinary'=>$data==0?"could not update":"updated"]);
+        if($status==0){
+            return response(["message"=>"Could not update"], 500);
+        }else{
+            return response(["message"=>"Updated"]);
+        }
     }
 
     public function store(Request $request)
@@ -99,18 +103,21 @@ class VeterinaryController extends Controller
         try {
             $data = $validator->validate();
         } catch (ValidationException $e) {
-            return response(['message'=>$e->getMessage()]);
+            return response(['message'=>$e->getMessage()], 400);
         }
         $data = $request->user()->veterinaryAdmin()->create($data);
         $request->user()->update([
             "veterinary_id" => $data->id
         ]);
-        return response(['veterinary'=>$data]);
+        return response(['veterinary'=>$data], 201);
     }
 
     public function delete(Request $request)
     {
         $admin = $request->user()->veterinaryAdmin;
+        if($admin==null){
+            return response(["message"=>"User doesn't have any veterinary"], 404);
+        }
         User::where('veterinary_id',$admin->id)->update(['veterinary_id'=>null]);
         $request->user()->veterinaryAdmin()->delete();
         return response(['message'=>"deleted"]);
