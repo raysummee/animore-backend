@@ -19,7 +19,6 @@ class MerchantController extends Controller
 
     public function update(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             "store_name" => "",
             "availability" => 'boolean',
@@ -32,11 +31,15 @@ class MerchantController extends Controller
         try {
             $data = $validator->validate();
         } catch (ValidationException $e) {
-            return response(['message'=>$e->getMessage()]);
+            return response(['message'=>$e->getMessage()], 400);
         }
-        $data = $request->user()->storeAdmin()->update($data);
+        $status = $request->user()->storeAdmin()->update($data);
 
-        return response(['merchant'=>$data==0?"could not update":"updated"]);
+        if($status==0){
+            return response(['message'=>"Could not update"], 500);
+        }else{
+            return response(["message"=>"Updated"], 200);
+        }
     }
 
     public function store(Request $request)
@@ -58,13 +61,13 @@ class MerchantController extends Controller
         try {
             $data = $validator->validate();
         } catch (ValidationException $e) {
-            return response(['message'=>$e->getMessage()]);
+            return response(['message'=>$e->getMessage()], 400);
         }
         $data = $request->user()->storeAdmin()->create($data);
         $request->user()->update([
             "store_id" => $data->id
         ]);
-        return response(['store'=>$data]);
+        return response(['store'=>$data], 201);
     }
 
     public function delete(Request $request)
