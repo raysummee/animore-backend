@@ -38,9 +38,9 @@ class PetController extends Controller
             return response(['message'=>$e->getMessage(), 400]);
         }
 
-        $request->user()->pet()->create($validateData);
+        $data = $request->user()->pet()->create($validateData);
 
-        return response(["pet" => $validateData], 201);
+        return response(["pet" => $data], 201);
     }
 
     public function update(Request $request, Pet $pet)
